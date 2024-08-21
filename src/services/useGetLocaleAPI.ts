@@ -7,20 +7,11 @@ import { Weather } from "@/types/Weather";
 export default function useGetLocaleAPI() {
 
   const [data, setData] = useState(null);
-  const [city, SetCity] = useState<string>("aracaju");
+  const [city, SetCity] = useState<string>(localStorage.getItem('cityWeather') || 'aracaju');
   const [loading, SetLoading] = useState<boolean>(false);
   const [weather, setWeather] = useState<Weather | null>(null);
   const [error, setError] = useState<boolean | null>(null);
   const api_key = process.env.NEXT_PUBLIC_KEY;
-
-  useEffect(() => {
-    if(typeof window !== 'undefined') {
-       const storedCity = localStorage.getItem('cityWeather')
-       if(storedCity) {
-        SetCity(storedCity)
-       }
-    }
-  },[])
 
 
   const fetchData = async () => {
