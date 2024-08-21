@@ -11,6 +11,8 @@ import { IoSearchOutline } from "react-icons/io5";
 import { FaArrowsRotate } from "react-icons/fa6";
 import { FaGithubAlt } from "react-icons/fa";
 import { CiLinkedin } from "react-icons/ci";
+import { BsSunrise } from "react-icons/bs";
+import { BsSunset } from "react-icons/bs";
 
 export function PlaceIcon() {
   return <MdPlace />;
@@ -60,4 +62,12 @@ export function GithubIcon() {
 
 export function LinkedinIcon() { 
   return <CiLinkedin />
+}
+
+export function SunriseIcon() {
+  return <BsSunrise/>
+}
+
+export function SunsetIcon() {
+  return <BsSunset/>
 }

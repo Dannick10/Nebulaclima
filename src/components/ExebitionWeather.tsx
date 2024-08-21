@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   AirIcon,
@@ -7,11 +7,15 @@ import {
   DirectionIcon,
   PressureIcon,
   SpeedIcon,
+  SunriseIcon,
+  SunsetIcon,
   ThermometerIcon,
   WaveIcon,
 } from "@/icons/Icons";
 import { Weather } from "@/types/Weather";
 import { motion } from "framer-motion";
+import dayjs, { Dayjs } from "dayjs";
+import duration from "dayjs/plugin/duration";
 
 import clearDay from "../../public/Weather/clear-day.svg";
 import clearNight from "../../public/Weather/clear-night.svg";
@@ -36,6 +40,7 @@ type ExebitionWeatherProps = {
 
 const ExebitionWeather = ({ weather }: ExebitionWeatherProps) => {
   const getDescription = weather?.weather[0].description;
+  console.log(weather);
 
   const normalizeText = (text: string) => {
     return text
@@ -44,6 +49,17 @@ const ExebitionWeather = ({ weather }: ExebitionWeatherProps) => {
       .toLowerCase()
       .replace(/\s+/g, "");
   };
+
+  const [sunrise, setSunrise] = useState<string | null>(null);
+  const [sunset, setSunset] = useState<string | null>(null);
+
+
+  useEffect(() => {
+    if (weather?.sys?.sunrise && weather?.sys?.sunset) {
+      setSunrise(dayjs.unix(weather?.sys?.sunrise).format("HH:mm:ss"));
+      setSunset(dayjs.unix(weather?.sys?.sunset).format("HH:mm:ss"));
+    }
+  }, [weather]);
 
   const getImage = () => {
     const isNight = weather?.weather[0].icon.endsWith("n");
@@ -104,14 +120,15 @@ const ExebitionWeather = ({ weather }: ExebitionWeatherProps) => {
               damping: 20,
             }}
           >
-            <motion.h1 className="text-5xl font-bold"
-            initial={{ opacity: 0}}
-            animate={{ opacity: 1 }}
-            transition={{
-              type: "just",
-              stiffness: 260,
-              damping: 20,
-            }}
+            <motion.h1
+              className="text-5xl font-bold"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                type: "just",
+                stiffness: 260,
+                damping: 20,
+              }}
             >
               {Math.round(weather?.main.temp || 0)}º
             </motion.h1>
@@ -134,24 +151,29 @@ const ExebitionWeather = ({ weather }: ExebitionWeatherProps) => {
       <section className="hero">
         <div className="hero-overlay justify-center flex">
           <motion.p
-           initial={{scale: 0, rotateY: 4 }}
-           animate={{ scale: 1, scaleY: 1 }}
-           transition={{
-             type: "just",
-             stiffness: 260,
-             damping: 20,
-           }}>{weather?.weather[0]?.description.toUpperCase()}</motion.p>
+            initial={{ scale: 0, rotateY: 4 }}
+            animate={{ scale: 1, scaleY: 1 }}
+            transition={{
+              type: "just",
+              stiffness: 260,
+              damping: 20,
+            }}
+          >
+            {weather?.weather[0]?.description.toUpperCase()}
+          </motion.p>
         </div>
         <div className="hero-content pt-10">
-          <motion.div className="flex flex-col items-center justify-center gap-2"
-          initial={{ y: 50, scale: 0 }}
-          animate={{ y: 0, scale: 1 }}
-          transition={{
-            type: "just",
-            stiffness: 260,
-            damping: 20,
-            delay: 0.2
-          }}>
+          <motion.div
+            className="flex flex-col items-center justify-center gap-2"
+            initial={{ y: 50, scale: 0 }}
+            animate={{ y: 0, scale: 1 }}
+            transition={{
+              type: "just",
+              stiffness: 260,
+              damping: 20,
+              delay: 0.2,
+            }}
+          >
             <div className="flex gap-2">
               <h1 className="text-2xl font-bold">MAX</h1>
               <span>
@@ -160,15 +182,17 @@ const ExebitionWeather = ({ weather }: ExebitionWeatherProps) => {
             </div>
             {Math.round(weather?.main.temp_max || 0)}º
           </motion.div>
-          <motion.div className="flex flex-col items-center justify-center gap-2"
-          initial={{ y: 50, scale: 0 }}
-          animate={{ y: 0, scale: 1 }}
-          transition={{
-            type: "just",
-            stiffness: 260,
-            damping: 20,
-            delay: 0.3
-          }}>
+          <motion.div
+            className="flex flex-col items-center justify-center gap-2"
+            initial={{ y: 50, scale: 0 }}
+            animate={{ y: 0, scale: 1 }}
+            transition={{
+              type: "just",
+              stiffness: 260,
+              damping: 20,
+              delay: 0.3,
+            }}
+          >
             <div className="flex gap-2">
               <h1 className="text-2xl font-bold">MIN</h1>
               <span>
@@ -183,14 +207,15 @@ const ExebitionWeather = ({ weather }: ExebitionWeatherProps) => {
         <table className="table table-zebra">
           <tbody>
             <motion.tr
-             initial={{ y: 100, opacity: 0 }}
-             animate={{ y: 0, opacity: 1 }}
-             transition={{
-               type: "just",
-               stiffness: 260,
-               damping: 20,
-               delay: 0.1
-             }}>
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                type: "just",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.1,
+              }}
+            >
               <td className="flex gap-2">
                 <span className="text-xl">
                   <ThermometerIcon />
@@ -199,16 +224,17 @@ const ExebitionWeather = ({ weather }: ExebitionWeatherProps) => {
               </td>
               <td>{Math.round(weather?.main.feels_like || 0)}º</td>
             </motion.tr>
-            
+
             <motion.tr
-             initial={{ y: 100, opacity: 0 }}
-             animate={{ y: 0, opacity: 1 }}
-             transition={{
-               type: "just",
-               stiffness: 260,
-               damping: 20,
-               delay: 0.2
-             }}>
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                type: "just",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.2,
+              }}
+            >
               <td className="flex gap-2">
                 <span className="text-xl">
                   <PressureIcon />
@@ -218,14 +244,15 @@ const ExebitionWeather = ({ weather }: ExebitionWeatherProps) => {
               <td>{weather?.main.pressure} hPa</td>
             </motion.tr>
             <motion.tr
-             initial={{ y: 100, opacity: 0 }}
-             animate={{ y: 0, opacity: 1 }}
-             transition={{
-               type: "just",
-               stiffness: 260,
-               damping: 20,
-               delay: 0.3
-             }}>
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                type: "just",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.3,
+              }}
+            >
               <td className="flex gap-2">
                 <span className="text-xl">
                   <AirIcon />
@@ -236,14 +263,15 @@ const ExebitionWeather = ({ weather }: ExebitionWeatherProps) => {
             </motion.tr>
 
             <motion.tr
-             initial={{ y: 100, opacity: 0 }}
-             animate={{ y: 0, opacity: 1 }}
-             transition={{
-               type: "just",
-               stiffness: 260,
-               damping: 20,
-               delay: 0.4
-             }}>
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                type: "just",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.4,
+              }}
+            >
               <td className="flex gap-2">
                 <span className="text-xl">
                   <WaveIcon />
@@ -253,14 +281,15 @@ const ExebitionWeather = ({ weather }: ExebitionWeatherProps) => {
               <td>{weather?.main.sea_level || weather?.main.pressure} hPa</td>
             </motion.tr>
             <motion.tr
-             initial={{ y: 100, opacity: 0 }}
-             animate={{ y: 0, opacity: 1 }}
-             transition={{
-               type: "just",
-               stiffness: 260,
-               damping: 20,
-               delay: 0.5
-             }}>
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                type: "just",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.5,
+              }}
+            >
               <td className="flex gap-2">
                 <span
                   className={`text-xl`}
@@ -273,14 +302,15 @@ const ExebitionWeather = ({ weather }: ExebitionWeatherProps) => {
               <td>{weather?.wind.deg}º</td>
             </motion.tr>
             <motion.tr
-             initial={{ y: 100, opacity: 0 }}
-             animate={{ y: 0, opacity: 1 }}
-             transition={{
-               type: "just",
-               stiffness: 260,
-               damping: 20,
-               delay: 0.6
-             }}>
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                type: "just",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.6,
+              }}
+            >
               <td className="flex gap-2">
                 <span className="text-xl">
                   <SpeedIcon />
@@ -288,6 +318,42 @@ const ExebitionWeather = ({ weather }: ExebitionWeatherProps) => {
                 <p>Velocidade do vento</p>
               </td>
               <td>{weather?.wind.speed} m/s</td>
+            </motion.tr>
+            <motion.tr
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1.2 }}
+              transition={{
+                type: "just",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.8,
+              }}
+            >
+              <td className="flex gap-2">
+                <span className="text-xl">
+                  <SunriseIcon />
+                </span>
+                <p>nascer do sol</p>
+              </td>
+              <td>{sunrise}</td>
+            </motion.tr>
+            <motion.tr
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1.4 }}
+              transition={{
+                type: "just",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.8,
+              }}
+            >
+              <td className="flex gap-2">
+                <span className="text-xl">
+                  <SunsetIcon />
+                </span>
+                <p>pôr do sol</p>
+              </td>
+              <td>{sunset}</td>
             </motion.tr>
           </tbody>
         </table>

@@ -29,7 +29,7 @@ export default function useGetLocaleAPI() {
     const limit = 1;
     const link = `https://api.openweathermap.org/geo/1.0/direct?q=${city},${countryCode}&limit=${limit}&appid=9583730b2062b79690e88912c5724e10&lang=${language}`;
     SetLoading(true)
-    try {
+    try { 
       const response = await axios.get(link);
       const locationData = response.data[0];
       setData(locationData);
