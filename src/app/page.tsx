@@ -117,11 +117,13 @@ export default function Home() {
             }}
             className="flex-1"
           >
+            <div className="w-1/8 relative">
             <InputComponent
               placehold=""
               target={(e) => SetCity(e.target.value)}
               value={city}
-            />
+              />
+              </div>
           </motion.div>
         ) : (
           <>
@@ -192,12 +194,12 @@ export default function Home() {
         >
           <RotateIcon />
         </motion.button>
-        <ChooseTheme themes={themes} theme={theme} onChange={changeTheme} />
       </div>
       <Layout>
         {!loading ? <ExebitionWeather weather={weather} /> : <Skeleton />}
       </Layout>
         <div className="flex justify-center items-center py-2 gap-2">
+        <ChooseTheme themes={themes} theme={theme} onChange={changeTheme} />
           <Link href={"https://github.com/Dannick10"} target="_blank">
             <motion.button
               initial={{ opacity: 0.6 }}

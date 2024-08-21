@@ -11,7 +11,7 @@ const InputComponent = (props: Props) => {
   const placehold = "digite a cidade" ?? props.placehold;
 
   return (
-    <label className="input input-bordered flex items-center gap-2 flex-1">
+    <label className="input input-bordered flex items-center gap-2 relative ">
       <input
         type="text"
         className="grow"
@@ -19,7 +19,7 @@ const InputComponent = (props: Props) => {
         value={props.value}
         onChange={props.target}
       />
-      <span className="text-2xl">
+      <span className="text-2xl absolute right-2">
         <PlaceIcon />
       </span>
     </label>
