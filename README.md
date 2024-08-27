@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Nebulaclima
 
-## Getting Started
+Nebulaclima é uma aplicação desenvolvida para fornecer informações meteorológicas detalhadas de qualquer cidade do Brasil. O projeto utiliza múltiplas APIs para fornecer dados precisos de localização e clima, além de permitir a seleção de países e cidades de forma intuitiva.
 
-First, run the development server:
+## Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+| Funcionalidade             | Descrição                                                                                     |
+|----------------------------|------------------------------------------------------------------------------------------------|
+| **Pesquisa de Clima**       | Busque informações climáticas utilizando a API do OpenWeatherMap.                              |
+| **Busca por Cidades**       | Encontre e selecione cidades brasileiras através de um input ou select, usando a API do IBGE. |
+| **Exibição de Países**      | Selecione países e visualize suas cidades, integrando com a API do IBGE.                       |
+| **Animações**               | Experimente animações suaves implementadas com `Frame Motion`.                                 |
+| **Mudança de Tema**         | Altere o tema da aplicação conforme sua preferência, utilizando `LocalStorage` para persistência. |
+| **Integração de APIs**      | As APIs de localização, clima e listagem de cidades estão interligadas para uma experiência fluida. |
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tecnologias Utilizadas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Next.js
+- TypeScript
+- DaisyUI
+- Frame Motion
+- LocalStorage
+- API do OpenWeatherMap: Link para a API
+- API do IBGE: Para listar países e cidades do Brasil
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Instalação
 
-## Learn More
+1. Clone o repositório:
+   ```bash
+   git clone git clone https://github.com/Dannick10/Nebulaclima
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Licença
+Este projeto está licenciado sob a Licença MIT.
